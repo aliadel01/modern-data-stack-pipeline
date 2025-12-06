@@ -1,0 +1,21 @@
+services:
+  scheduler:
+    volumes:
+      - ./dbt:/usr/local/airflow/dbt:rw
+      - ./bronze_scripts:/usr/local/airflow/bronze_scripts:rw
+      - ./config:/usr/local/airflow/config:rw
+      - ./logs:/usr/local/airflow/logs:rw
+
+  webserver:
+    volumes:
+      - ./dbt:/usr/local/airflow/dbt:rw
+      - ./bronze_scripts:/usr/local/airflow/bronze_scripts:rw
+      - ./config:/usr/local/airflow/config:rw
+      - ./logs:/usr/local/airflow/logs:rw
+
+  triggerer:
+    volumes:
+      - ./dbt:/usr/local/airflow/dbt:rw
+      - ./bronze_scripts:/usr/local/airflow/bronze_scripts:rw
+      - ./config:/usr/local/airflow/config:rw
+      - ./logs:/usr/local/airflow/logs:rw

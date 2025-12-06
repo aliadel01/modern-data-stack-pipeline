@@ -1,0 +1,84 @@
+version: 2
+
+sources:
+  - name: bronze
+    database: "SALES_DWH"
+    schema: "BRONZE"
+    tables:
+      - name: '"crm_cust_info"' 
+        description: "Raw CRM customer information from the source system."
+        columns:
+          - name: cst_id
+          - name: cst_key
+          - name: cst_firstname
+          - name: cst_lastname
+          - name: cst_marital_status
+          - name: cst_gndr
+          - name: cst_create_date
+      - name: '"crm_prd_info"'
+        description: "Raw CRM product information from the source system."
+        columns:
+          - name: prd_id
+            description: "Product ID"
+          - name: prd_key
+            description: "Product key"
+          - name: prd_nm
+            description: "Product name"
+          - name: prd_cost
+            description: "Product cost"
+          - name: prd_line
+            description: "Product line code (M=Mountain, R=Road, etc.)"
+          - name: prd_start_dt
+            description: "Product start date"
+
+      - name: '"crm_sales_details"'
+        description: "Raw CRM sales transaction details."
+        columns:
+          - name: sls_ord_num
+            description: "Sales order number"
+          - name: sls_prd_key
+            description: "Product key"
+          - name: sls_cust_id
+            description: "Customer ID"
+          - name: sls_order_dt
+            description: "Order date"
+          - name: sls_ship_dt
+            description: "Ship date"
+          - name: sls_due_dt
+            description: "Due date"
+          - name: sls_sales
+            description: "Sales amount"
+          - name: sls_quantity
+            description: "Quantity sold"
+          - name: sls_price
+            description: "Price per unit"
+
+      - name: '"erp_cust_az12"'
+        description: "Raw ERP customer details from source system AZ12."
+        columns:
+          - name: cid
+            description: "Customer ID"
+          - name: bdate
+            description: "Customer birthdate"
+          - name: gen
+            description: "Gender (M/F)"
+
+      - name: '"erp_loc_a101"'
+        description: "Raw ERP location table."
+        columns:
+          - name: cid
+            description: "Customer ID"
+          - name: cntry
+            description: "Country code"
+
+      - name: '"erp_px_cat_g1v2"'
+        description: "Raw ERP product category table."
+        columns:
+          - name: id
+            description: "Category ID"
+          - name: cat
+            description: "Category name"
+          - name: subcat
+            description: "Subcategory name"
+          - name: maintenance
+            description: "Maintenance flag"

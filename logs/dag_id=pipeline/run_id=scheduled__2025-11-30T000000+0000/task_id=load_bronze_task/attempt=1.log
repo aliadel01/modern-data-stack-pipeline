@@ -1,0 +1,39 @@
+[2025-12-01T18:50:55.117+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2025-12-01T18:50:55.176+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: pipeline.load_bronze_task scheduled__2025-11-30T00:00:00+00:00 [queued]>
+[2025-12-01T18:50:55.198+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: pipeline.load_bronze_task scheduled__2025-11-30T00:00:00+00:00 [queued]>
+[2025-12-01T18:50:55.201+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 1
+[2025-12-01T18:50:55.240+0000] {taskinstance.py:2330} INFO - Executing <Task(PythonOperator): load_bronze_task> on 2025-11-30 00:00:00+00:00
+[2025-12-01T18:50:55.277+0000] {standard_task_runner.py:63} INFO - Started process 762 to run task
+[2025-12-01T18:50:55.293+0000] {standard_task_runner.py:90} INFO - Running: ['airflow', 'tasks', 'run', 'pipeline', 'load_bronze_task', 'scheduled__2025-11-30T00:00:00+00:00', '--job-id', '9', '--raw', '--subdir', 'DAGS_FOLDER/pipeline.py', '--cfg-path', '/tmp/tmpdic4zabl']
+[2025-12-01T18:50:55.298+0000] {standard_task_runner.py:91} INFO - Job 9: Subtask load_bronze_task
+[2025-12-01T18:50:55.411+0000] {task_command.py:426} INFO - Running <TaskInstance: pipeline.load_bronze_task scheduled__2025-11-30T00:00:00+00:00 [running]> on host 9d2fdd596c37
+[2025-12-01T18:50:55.536+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='pipeline' AIRFLOW_CTX_TASK_ID='load_bronze_task' AIRFLOW_CTX_EXECUTION_DATE='2025-11-30T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-11-30T00:00:00+00:00'
+[2025-12-01T18:50:55.541+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2025-12-01T18:50:55.614+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2025-12-01T18:50:55.616+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/airflow/models/baseoperator.py", line 400, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/airflow/operators/python.py", line 235, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/airflow/operators/python.py", line 252, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/airflow/dags/pipeline.py", line 13, in run_preprocess
+    subprocess.run(["python", PYTHON_FILE_PATH], check=True)
+  File "/usr/local/lib/python3.11/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['python', '/usr/local/airflow/bronze_scripts/bronze_script.py']' returned non-zero exit status 2.
+[2025-12-01T18:50:55.658+0000] {taskinstance.py:1206} INFO - Marking task as FAILED. dag_id=pipeline, task_id=load_bronze_task, run_id=scheduled__2025-11-30T00:00:00+00:00, execution_date=20251130T000000, start_date=20251201T185055, end_date=20251201T185055
+[2025-12-01T18:50:55.683+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 9 for task load_bronze_task (Command '['python', '/usr/local/airflow/bronze_scripts/bronze_script.py']' returned non-zero exit status 2.; 762)
+[2025-12-01T18:50:55.710+0000] {local_task_job_runner.py:240} INFO - Task exited with return code 1
+[2025-12-01T18:50:55.771+0000] {taskinstance.py:3498} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2025-12-01T18:50:55.791+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

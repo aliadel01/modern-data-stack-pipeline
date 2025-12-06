@@ -1,0 +1,42 @@
+[2025-12-01T18:20:21.580+0000] {processor.py:161} INFO - Started process (PID=351) to work on /usr/local/airflow/dags/flow.py
+[2025-12-01T18:20:21.582+0000] {processor.py:830} INFO - Processing file /usr/local/airflow/dags/flow.py for tasks to queue
+[2025-12-01T18:20:21.583+0000] {logging_mixin.py:188} INFO - [2025-12-01T18:20:21.582+0000] {dagbag.py:545} INFO - Filling up the DagBag from /usr/local/airflow/dags/flow.py
+[2025-12-01T18:20:21.613+0000] {logging_mixin.py:188} INFO - [2025-12-01T18:20:21.606+0000] {dagbag.py:355} ERROR - Failed to import: /usr/local/airflow/dags/flow.py
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/airflow/models/dagbag.py", line 351, in parse
+    loader.exec_module(new_module)
+  File "<frozen importlib._bootstrap_external>", line 940, in exec_module
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "/usr/local/airflow/dags/flow.py", line 4, in <module>
+    from airflow.providers.bash.operators.bash import BashOperator
+ModuleNotFoundError: No module named 'airflow.providers.bash'
+[2025-12-01T18:20:21.617+0000] {processor.py:842} WARNING - No viable dags retrieved from /usr/local/airflow/dags/flow.py
+[2025-12-01T18:20:21.646+0000] {processor.py:183} INFO - Processing /usr/local/airflow/dags/flow.py took 0.072 seconds
+[2025-12-01T18:20:51.997+0000] {processor.py:161} INFO - Started process (PID=361) to work on /usr/local/airflow/dags/flow.py
+[2025-12-01T18:20:51.999+0000] {processor.py:830} INFO - Processing file /usr/local/airflow/dags/flow.py for tasks to queue
+[2025-12-01T18:20:52.000+0000] {logging_mixin.py:188} INFO - [2025-12-01T18:20:52.000+0000] {dagbag.py:545} INFO - Filling up the DagBag from /usr/local/airflow/dags/flow.py
+[2025-12-01T18:20:52.037+0000] {logging_mixin.py:188} INFO - [2025-12-01T18:20:52.028+0000] {dagbag.py:355} ERROR - Failed to import: /usr/local/airflow/dags/flow.py
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/airflow/models/dagbag.py", line 351, in parse
+    loader.exec_module(new_module)
+  File "<frozen importlib._bootstrap_external>", line 940, in exec_module
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "/usr/local/airflow/dags/flow.py", line 4, in <module>
+    from airflow.providers.bash.operators.bash import BashOperator
+ModuleNotFoundError: No module named 'airflow.providers.bash'
+[2025-12-01T18:20:52.039+0000] {processor.py:842} WARNING - No viable dags retrieved from /usr/local/airflow/dags/flow.py
+[2025-12-01T18:20:52.071+0000] {processor.py:183} INFO - Processing /usr/local/airflow/dags/flow.py took 0.086 seconds
+[2025-12-01T18:21:22.266+0000] {processor.py:161} INFO - Started process (PID=366) to work on /usr/local/airflow/dags/flow.py
+[2025-12-01T18:21:22.271+0000] {processor.py:830} INFO - Processing file /usr/local/airflow/dags/flow.py for tasks to queue
+[2025-12-01T18:21:22.274+0000] {logging_mixin.py:188} INFO - [2025-12-01T18:21:22.273+0000] {dagbag.py:545} INFO - Filling up the DagBag from /usr/local/airflow/dags/flow.py
+[2025-12-01T18:21:22.314+0000] {logging_mixin.py:188} INFO - [2025-12-01T18:21:22.309+0000] {dagbag.py:355} ERROR - Failed to import: /usr/local/airflow/dags/flow.py
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/airflow/models/dagbag.py", line 351, in parse
+    loader.exec_module(new_module)
+  File "<frozen importlib._bootstrap_external>", line 940, in exec_module
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "/usr/local/airflow/dags/flow.py", line 4, in <module>
+    from airflow.providers.bash.operators.bash import BashOperator
+ModuleNotFoundError: No module named 'airflow.providers.bash'
+[2025-12-01T18:21:22.318+0000] {processor.py:842} WARNING - No viable dags retrieved from /usr/local/airflow/dags/flow.py
+[2025-12-01T18:21:22.353+0000] {processor.py:183} INFO - Processing /usr/local/airflow/dags/flow.py took 0.105 seconds
