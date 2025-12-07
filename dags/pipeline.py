@@ -6,13 +6,19 @@ from cosmos.profiles import SnowflakeUserPasswordProfileMapping
 from bronze_scripts.load_bronze import load_bronze
 
 PATH_TO_DBT_PROJECT = "/usr/local/airflow/dbt/dbt_project"
-PATH_TO_DBT_VENV = "/usr/local/bin/dbt"
+PATH_TO_DBT_VENV = "/usr/local/airflow/dbt_venv/bin/dbt"
 
 profile_config = ProfileConfig(
     profile_name="dbt_project",
     target_name="dev",
     profile_mapping=SnowflakeUserPasswordProfileMapping(
         conn_id="snowflake_default",
+        profile_args={
+            "account": "LXBSVAT-XT72809",
+            "database": "SALES_DWH",
+            "schema": "SILVER",
+            "role": "ACCOUNTADMIN",
+        },
     ),
 )
 
@@ -38,7 +44,7 @@ with DAG(
         project_config=ProjectConfig(PATH_TO_DBT_PROJECT),
         profile_config=profile_config,
         execution_config=execution_config,
-        default_args={"retries": 2},
+        default_args={"retries": 0},
     )
 
     load_bronze_task >> transform_data

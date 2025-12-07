@@ -6,4 +6,4 @@ SELECT
         WHEN TRIM(cntry) IS NULL OR TRIM(cntry) = '' THEN 'n/a'
         ELSE TRIM(cntry)
     END AS cntry
-FROM {{ source('bronze', '"erp_loc_a101"') }}
+FROM {{ source('bronze', 'ERP_LOC_A101') }}

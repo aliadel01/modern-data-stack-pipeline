@@ -6,4 +6,4 @@ SELECT
         WHEN UPPER(TRIM(gen)) IN ('M','MALE') THEN 'Male'
         ELSE 'n/a'
     END AS gen
-FROM {{ source('bronze', '"erp_cust_az12"') }}
+FROM {{ source('bronze', 'ERP_CUST_AZ12') }}

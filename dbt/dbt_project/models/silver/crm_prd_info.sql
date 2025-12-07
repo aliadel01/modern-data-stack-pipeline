@@ -12,8 +12,5 @@ SELECT
         ELSE 'n/a'
     END AS prd_line,
     CAST(prd_start_dt AS DATE) AS prd_start_dt,
-    CAST(
-        LEAD(prd_start_dt) OVER (PARTITION BY prd_key ORDER BY prd_start_dt) - 1
-        AS DATE
-    ) AS prd_end_dt
-FROM {{ source('bronze', '"crm_prd_info"') }}
+    DATEADD(day, -1, LEAD(CAST(prd_start_dt AS DATE)) OVER (PARTITION BY prd_key ORDER BY CAST(prd_start_dt AS DATE))) AS prd_end_dt
+FROM {{ source('bronze', 'CRM_PRD_INFO') }}

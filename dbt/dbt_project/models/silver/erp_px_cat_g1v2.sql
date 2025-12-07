@@ -3,4 +3,4 @@ SELECT
     cat,
     subcat,
     maintenance
-FROM {{ source('bronze', '"erp_px_cat_g1v2"') }}
+FROM {{ source('bronze', 'ERP_PX_CAT_G1V2') }}

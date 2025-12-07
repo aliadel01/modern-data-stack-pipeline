@@ -8,7 +8,6 @@ import time
 import os
 
 def load_bronze():
-
     os.makedirs("logs", exist_ok=True)
 
     # ==========================================
@@ -61,8 +60,13 @@ def load_bronze():
         )
         logging.info("Snowflake connection created successfully.")
 
+        # Activate warehouse
+        cur = ctx.cursor()
+        cur.execute(f"USE WAREHOUSE {sf_params['warehouse']}")
+        logging.info(f"Warehouse {sf_params['warehouse']} activated.")
+
     except Exception as e:
-        logging.error(f"Failed to connect to Snowflake: {e}")
+        logging.error(f"Failed to connect to Snowflake or activate warehouse: {e}")
         sys.exit(1)
 
     # ==========================================
@@ -75,12 +79,12 @@ def load_bronze():
     # Tables to Load
     # ==========================================
     tables_to_load = {
-        "crm_cust_info": "https://raw.githubusercontent.com/DataWithBaraa/sql-data-warehouse-project/main/datasets/source_crm/cust_info.csv",
-        "crm_prd_info": "https://raw.githubusercontent.com/DataWithBaraa/sql-data-warehouse-project/main/datasets/source_crm/prd_info.csv",
-        "crm_sales_details": "https://raw.githubusercontent.com/DataWithBaraa/sql-data-warehouse-project/main/datasets/source_crm/sales_details.csv",
-        "erp_cust_az12": "https://raw.githubusercontent.com/DataWithBaraa/sql-data-warehouse-project/main/datasets/source_erp/CUST_AZ12.csv",
-        "erp_loc_a101": "https://raw.githubusercontent.com/DataWithBaraa/sql-data-warehouse-project/main/datasets/source_erp/LOC_A101.csv",
-        "erp_px_cat_g1v2": "https://raw.githubusercontent.com/DataWithBaraa/sql-data-warehouse-project/main/datasets/source_erp/PX_CAT_G1V2.csv"
+        "CRM_CUST_INFO": "https://raw.githubusercontent.com/DataWithBaraa/sql-data-warehouse-project/main/datasets/source_crm/cust_info.csv",
+        "CRM_PRD_INFO": "https://raw.githubusercontent.com/DataWithBaraa/sql-data-warehouse-project/main/datasets/source_crm/prd_info.csv",
+        "CRM_SALES_DETAILS": "https://raw.githubusercontent.com/DataWithBaraa/sql-data-warehouse-project/main/datasets/source_crm/sales_details.csv",
+        "ERP_CUST_AZ12": "https://raw.githubusercontent.com/DataWithBaraa/sql-data-warehouse-project/main/datasets/source_erp/CUST_AZ12.csv",
+        "ERP_LOC_A101": "https://raw.githubusercontent.com/DataWithBaraa/sql-data-warehouse-project/main/datasets/source_erp/LOC_A101.csv",
+        "ERP_PX_CAT_G1V2": "https://raw.githubusercontent.com/DataWithBaraa/sql-data-warehouse-project/main/datasets/source_erp/PX_CAT_G1V2.csv"
     }
 
     # ==========================================
@@ -89,29 +93,44 @@ def load_bronze():
     logging.info("Starting Bronze layer loading...")
 
     total_start = time.perf_counter()
+    failed_tables = []
 
     for table_name, url in tables_to_load.items():
         logging.info(f"Starting load for table: {table_name}")
-        
+
         try:
+            # Load CSV
             df = load_csv_from_github(url)
             df.columns = [col.upper() for col in df.columns]
             logging.info(f"Data fetched from GitHub: {url} | Rows in CSV: {len(df)}")
-            
+
+            # Write to Snowflake
             start = time.perf_counter()
-            
             success, nchunks, nrows, _ = write_pandas(ctx, df, table_name, overwrite=True)
+
             if success:
                 logging.info(f"Successfully loaded table: {table_name} | Rows inserted: {nrows}")
             else:
                 logging.error(f"Failed to load table: {table_name}")
-            
+                failed_tables.append(table_name)
+
             duration = time.perf_counter() - start
             logging.info(f"{table_name} loaded in {duration:.2f} seconds.")
-            
+
         except Exception as e:
             logging.error(f"Failed to load table {table_name}: {e}")
-            continue
+            failed_tables.append(table_name)
 
     ctx.close()
     logging.info("All Bronze tables processed.")
+    total_duration = time.perf_counter() - total_start
+    logging.info(f"Total Bronze loading duration: {total_duration:.2f} seconds.")
+
+    if failed_tables:
+        raise Exception(f"Bronze load failed for tables: {failed_tables}")
+
+# ==========================================
+# Run if script is executed directly
+# ==========================================
+if __name__ == "__main__":
+    load_bronze()
