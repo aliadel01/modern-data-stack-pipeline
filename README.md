@@ -99,8 +99,5 @@ Access the Airflow UI at `http://localhost:8080`.
     -   Verify data in `SALES_DWH.SILVER` and `SALES_DWH.GOLD` schemas.
 
 
-Built with ❤️ using [dbt](https://www.getdbt.com/), [Airflow](https://airflow.apache.org/), and [Snowflake](https://www.snowflake.com/).
-
-## 📄 License
-
-[MIT](https://choosealicense.com/licenses/mit/)
+#### Built with ❤️ 
+##### using [dbt](https://www.getdbt.com/), [Airflow](https://airflow.apache.org/), and [Snowflake](https://www.snowflake.com/).
